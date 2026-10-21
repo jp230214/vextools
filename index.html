@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="VexTools — free, useful online tools for everyone.">
+  <title>VexTools — Your toolkit</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #0b1020;
+      color: #f4f5ff;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    header {
+      padding: 22px 6%;
+      border-bottom: 1px solid #242b40;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo { font-size: 23px; font-weight: 800; }
+    .logo span { color: #9b83ff; }
+    .tag {
+      color: #c1b5ff;
+      background: #211b3b;
+      padding: 7px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+    }
+    main {
+      width: min(900px, 90%);
+      margin: 65px auto;
+    }
+    .eyebrow {
+      color: #a996ff;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    h1 {
+      font-size: clamp(42px, 9vw, 68px);
+      letter-spacing: -2px;
+      line-height: 1.05;
+      margin: 16px 0;
+    }
+    h1 span {
+      color: #a18aff;
+    }
+    .intro {
+      color: #aab2c8;
+      font-size: 17px;
+      line-height: 1.7;
+      max-width: 520px;
+    }
+    .search {
+      width: 100%;
+      margin: 25px 0 35px;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid #303951;
+      background: #141b2e;
+      color: white;
+      font-size: 16px;
+    }
+    .search:focus {
+      outline: 2px solid #8d75ff;
+    }
+    h2 { font-size: 20px; margin-bottom: 17px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .tool {
+      padding: 21px;
+      background: #141b2e;
+      border: 1px solid #252f48;
+      border-radius: 16px;
+      min-width: 0;
+      transition: border-color .2s, transform .2s;
+    }
+    .tool:hover {
+      border-color: #8d75ff;
+      transform: translateY(-2px);
+    }
+    .emoji { font-size: 27px; }
+    .tool h3 { margin: 15px 0 8px; }
+    .tool p {
+      color: #aab2c8;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+    .empty { color: #aab2c8; }
+    footer {
+      text-align: center;
+      padding: 30px 15px;
+      color: #7f8aa5;
+      border-top: 1px solid #242b40;
+      font-size: 13px;
+    }
+    @media (max-width: 420px) {
+      main { margin-top: 45px; }
+      .grid { grid-template-columns: 1fr; }
+      .tag { font-size: 11px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Vex<span>Tools</span></div>
+    <div class="tag">FREE TOOLKIT</div>
+  </header>
+
+  <main>
+    <p class="eyebrow">Your digital workspace</p>
+    <h1>Small tools.<br><span>Big possibilities.</span></h1>
+    <p class="intro">
+      A growing collection of free tools for developers,
+      creators, and curious people. Everything you need,
+      all in one place.
+    </p>
+
+    <input
+      id="search"
+      class="search"
+      type="search"
+      placeholder="Search tools..."
+      aria-label="Search tools"
+    >
+
+    <h2>Explore tools</h2>
+    <div class="grid" id="tools">
+      <article class="tool" data-search="json formatter validator developer">
+        <div class="emoji">{"{ }"}</div>
+        <h3>JSON Formatter</h3>
+        <p>Format and validate JSON data with ease.</p>
+      </article>
+
+      <article class="tool" data-search="text word character counter">
+        <div class="emoji">Aa</div>
+        <h3>Text Toolkit</h3>
+        <p>Count words, change case, and transform text.</p>
+      </article>
+
+      <article class="tool" data-search="converter developer units">
+        <div class="emoji">⇄</div>
+        <h3>Converters</h3>
+        <p>Quick conversions for everyday tasks.</p>
+      </article>
+
+      <article class="tool" data-search="minecraft gaming creator">
+        <div class="emoji">▦</div>
+        <h3>Minecraft Tools</h3>
+        <p>Useful utilities for Minecraft creators.</p>
+      </article>
+    </div>
+    <p id="empty" class="empty" hidden>No tools found.</p>
+  </main>
+
+  <footer>
+    VexTools · Free tools for everyone
+  </footer>
+
+  <script>
+    const search = document.getElementById("search");
+    const cards = [...document.querySelectorAll(".tool")];
+    const empty = document.getElementById("empty");
+
+    search.addEventListener("input", () => {
+      const query = search.value.toLowerCase().trim();
+      let visible = 0;
+
+      cards.forEach(card => {
+        const matches =
+          card.textContent.toLowerCase().includes(query) ||
+          card.dataset.search.includes(query);
+
+        card.hidden = !matches;
+        if (matches) visible++;
+      });
+
+      empty.hidden = visible !== 0;
+    });
+  </script>
+</body>
+</html>
